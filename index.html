@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font awesome Icon CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <title>Dropdown Search Bar | upCoding</title>
+</head>
+<body>
+
+<!-- Search Bar start -->
+<div class="search-bar">
+  <!-- Dropdown start -->
+  <div class="dropdown">
+    <div class="dropdown-text" id="drop-text">
+      <span id="span">Everything</span>
+      <i class="fa-solid fa-chevron-down" id="icon"></i>
+    </div>
+    <ul class="dropdown-list" id="list">
+      <li class="dropdown-list-item">Everything</li>
+      <li class="dropdown-list-item">Videos</li>
+      <li class="dropdown-list-item">Community</li>
+      <li class="dropdown-list-item">Playlists</li>
+      <li class="dropdown-list-item">Shorts</li>
+    </ul>
+  </div>
+  <!-- Dropdown ends -->
+
+  <!-- Search box input start -->
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="Search anything.." />
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <!-- Search box input ends -->
+</div>
+<!-- Search Bar ends -->
+
+<script>
+  let dropdownBtnText = document.getElementById("drop-text");
+  let span = document.getElementById("span");
+  let icon = document.getElementById("icon");
+  let list = document.getElementById("list");
+  let input = document.getElementById("search-input");
+  let listItems = document.querySelectorAll(".dropdown-list-item");
+
+  dropdownBtnText.onclick = function () {
+    list.classList.toggle("show");
+    icon.style.transform = list.classList.contains("show") ? "rotate(-180deg)" : "rotate(0deg)";
+  };
+
+  window.onclick = function (e) {
+    if (
+      e.target.id !== "drop-text" &&
+      e.target.id !== "icon" &&
+      e.target.id !== "span"
+    ) {
+      list.classList.remove("show");
+      icon.style.transform = "rotate(0deg)";
+    }
+  };
+
+  listItems.forEach((item) => {
+    item.onclick = function (e) {
+      span.innerText = e.target.innerText;
+      if (e.target.innerText == "Everything") {
+        input.placeholder = "Search Anything...";
+      } else {
+        input.placeholder = "Search in " + e.target.innerText + "...";
+      }
+      list.classList.remove("show");
+      icon.style.transform = "rotate(0deg)";
+    };
+  });
+</script>
+
+</body>
+</html>
